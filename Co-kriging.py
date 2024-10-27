@@ -35,7 +35,7 @@ def optimize_rho(gaussian_process_1, gaussian_process_d, X_train, y_train):
     return result.x[0]
 
 # Main function to execute the GP regression process
-def run_gp_regression(data_path, train_indices, test_indices, feature_cols, target_cols):
+def run_CK(data_path, train_indices, test_indices, feature_cols, target_cols):
     # Get training and testing sets
     X_train, y_train, X_test, y_test = get_data_and_split(data_path, train_indices, test_indices, feature_cols, target_cols)
 
