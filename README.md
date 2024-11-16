@@ -70,6 +70,14 @@ Once your data and hyperparameters are ready, you can train the model by running
 ## Co-Kriging 
 This method utilizes a **joint covariance function** to simultaneously model the auto-covariances of each individual process and the **cross-covariance** between two related processes. The model is optimized jointly, which means that both the kernel parameters and the relationship between the two outputs are learned at the same time.
 
+### Key Concepts:
+1. **Gaussian Process (GP):** A non-parametric method used for regression tasks, capable of capturing complex relationships.
+2. **Co-Kriging:** A generalization of Kriging (spatial interpolation) to model multiple correlated outputs, considering both the individual variances (auto-covariances) and their relationships (cross-covariances).
+
+### Options for Co-Kriging:
+1. **Using a scalar parameter** to adjust the correlation between two separate GP models.
+2. **Using joint covariance structure**, where both **auto-covariance** and **cross-covariance** terms are optimized simultaneously.
+
 ### Key Steps:
 1. **Train a Joint Gaussian Process (GPCoregionalizedRegression):** 
    - This involves using both **auto-covariance kernels** for each individual process and a **cross-covariance kernel** to model the correlation between the two processes within a single GP model.
@@ -81,16 +89,6 @@ This method utilizes a **joint covariance function** to simultaneously model the
    - Once the model has been trained, it makes predictions using both processes, leveraging their joint structure to provide a more accurate and informed output. The final prediction is derived from the jointly learned processes.
 
 
-## Dalta learning with GP (Co-kriging with single correlation parameter)
 
-In this approach, the two GP models are trained separately, and the correlation between them is controlled by the **scalar parameter `rho`**. This parameter adjusts the derived output based on the primary GP predictions.
-
-### Steps:
-1. **Train Two Separate GPs:** One for the primary output and one for the derived output.
-2. **Optimization of `rho`:** `rho` is optimized to adjust the predictions of the derived output based on the primary GP's predictions.
-3. **Final Prediction:** The final prediction is a combination of the predictions from both models, adjusted by `rho`.
-
-#### Objective Function for Optimization:
-- `rho` is optimized by minimizing the negative log-likelihood of the second GP model, which uses the residuals between the primary GP's predictions and the true derived output.
 
 
