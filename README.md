@@ -67,7 +67,7 @@ Once your data and hyperparameters are ready, you can train the model by running
 
 
 
-## Co-Kriging 
+# Co-Kriging  
 This method utilizes a **joint covariance function** to simultaneously model the auto-covariances of each individual process and the **cross-covariance** between two related processes. The model is optimized jointly, which means that both the kernel parameters and the relationship between the two outputs are learned at the same time.
 
 ### Key Concepts:
