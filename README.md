@@ -65,3 +65,32 @@ Modify the following parameters:
 ### 3. Train the Model
 Once your data and hyperparameters are ready, you can train the model by running the test_PINN.
 
+
+
+## Co-Kriging 
+This method utilizes a **joint covariance function** to simultaneously model the auto-covariances of each individual process and the **cross-covariance** between two related processes. The model is optimized jointly, which means that both the kernel parameters and the relationship between the two outputs are learned at the same time.
+
+### Key Steps:
+1. **Train a Joint Gaussian Process (GPCoregionalizedRegression):** 
+   - This involves using both **auto-covariance kernels** for each individual process and a **cross-covariance kernel** to model the correlation between the two processes within a single GP model.
+  
+2. **Simultaneous Optimization:** 
+   - The model is optimized by adjusting the parameters of the auto-covariances and the cross-covariance term together. This ensures that both the individual variances and the relationship between the processes are learned simultaneously.
+   
+3. **Final Prediction:** 
+   - Once the model has been trained, it makes predictions using both processes, leveraging their joint structure to provide a more accurate and informed output. The final prediction is derived from the jointly learned processes.
+
+
+## Dalta learning with GP (Co-kriging with single correlation parameter)
+
+In this approach, the two GP models are trained separately, and the correlation between them is controlled by the **scalar parameter `rho`**. This parameter adjusts the derived output based on the primary GP predictions.
+
+### Steps:
+1. **Train Two Separate GPs:** One for the primary output and one for the derived output.
+2. **Optimization of `rho`:** `rho` is optimized to adjust the predictions of the derived output based on the primary GP's predictions.
+3. **Final Prediction:** The final prediction is a combination of the predictions from both models, adjusted by `rho`.
+
+#### Objective Function for Optimization:
+- `rho` is optimized by minimizing the negative log-likelihood of the second GP model, which uses the residuals between the primary GP's predictions and the true derived output.
+
+
