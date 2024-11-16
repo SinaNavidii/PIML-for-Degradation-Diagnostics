@@ -2,7 +2,7 @@ import numpy as np
 import scipy.io
 import scipy.interpolate
 
-def halfcell(DPs, file_path='halfcell.mat', Vexp_min=3.4, Vexp_max=4.075, data_no=100, data_no1=200, Q_sim_range=(0.05, 130)):
+def halfcell(DPs, file_path='halfcell.mat', Vexp_min=3.4, Vexp_max=4.075, data_no=500, Q_sim_range=(0.05, 100)):
     """
     Half-cell model function.
 
@@ -30,11 +30,11 @@ def halfcell(DPs, file_path='halfcell.mat', Vexp_min=3.4, Vexp_max=4.075, data_n
     V_NE_hc = halfcell_data['halfcell'][0][3]
 
     # Simulate cell capacity range
-    Q_sim = np.linspace(Q_sim_range[0], Q_sim_range[1], data_no1)
+    Q_sim = np.linspace(Q_sim_range[0], Q_sim_range[1], data_no)
 
     # Interpolate half-cell data
-    qPE_hc_sim = np.linspace(np.min(q_PE_hc), np.max(q_PE_hc), data_no1)
-    qNE_hc_sim = np.linspace(np.min(q_NE_hc), np.max(q_NE_hc), data_no1)
+    qPE_hc_sim = np.linspace(np.min(q_PE_hc), np.max(q_PE_hc), data_no)
+    qNE_hc_sim = np.linspace(np.min(q_NE_hc), np.max(q_NE_hc), data_no)
     VPE_hc_sim = scipy.interpolate.PchipInterpolator(q_PE_hc.flatten(), V_PE_hc.flatten())(qPE_hc_sim)
     VNE_hc_sim = scipy.interpolate.PchipInterpolator(q_NE_hc.flatten(), V_NE_hc.flatten())(qNE_hc_sim)
 
@@ -60,7 +60,7 @@ def halfcell(DPs, file_path='halfcell.mat', Vexp_min=3.4, Vexp_max=4.075, data_n
     Vf_sim_1 = Vf_sim[Vmin_ID:Vmax_ID]
 
     # Interpolate for finer resolution
-    Q_sim_2 = np.linspace(Q_sim_1.min(), Q_sim_1.max(), data_no1)
+    Q_sim_2 = np.linspace(Q_sim_1.min(), Q_sim_1.max(), data_no)
     Vf_sim_2 = scipy.interpolate.interp1d(Q_sim_1, Vf_sim_1, 'linear', fill_value="extrapolate")(Q_sim_2)
 
     # Calculate differential curves
@@ -69,7 +69,7 @@ def halfcell(DPs, file_path='halfcell.mat', Vexp_min=3.4, Vexp_max=4.075, data_n
     dQdV_sim = np.diff(Q_sim_2) / np.diff(Vf_sim_2)
     dQdV_sim = np.append(dQdV_sim, dQdV_sim[-1])
 
-    # Voltage-based simulation for capacity
+    # V-Q reconstructed 
     Vf_sim_Vbased = np.linspace(Vexp_min, Vexp_max, data_no)
     Qf_sim_Vbased = scipy.interpolate.interp1d(Vf_sim_2, Q_sim_2, 'linear', fill_value="extrapolate")(Vf_sim_Vbased)
     dQdV = scipy.interpolate.interp1d(Vf_sim_2, dQdV_sim, 'linear', fill_value="extrapolate")(Vf_sim_Vbased)
