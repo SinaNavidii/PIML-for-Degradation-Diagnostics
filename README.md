@@ -9,15 +9,11 @@ Main codes for half-cell model, PINN and co-kriging implemented for physics-info
 
 This repository provides a **Physics-Informed Neural Network (PINN)** model designed for battery degradation diagnostics. The model combines:
 
-- **Data-Driven Loss**: A traditional mean squared error (MSE) loss between predicted and experimental data.
-- **Physics-Based Loss**: A loss that enforces physical constraints by comparing model predictions to known battery behaviors.
-- **Peak Loss**: A term that encourages the model to align predictions of capacity drop with experimental peak data using the surrogate model.
-
-### Key Components:
-
-- **Surrogate Model**: Pre-trained model (loaded using joblib) that predicts peak values.
-- **Half-Cell Model**: Transforms predicted data into a format compatible with the physical constraints of battery operation.
-- **PINN Model**: A neural network with two hidden layers and ReLU activations, used to predict battery degradation parameters based on input features.
+- **Data-Driven Loss**: The standard data-driven loss is calculated using the predicted half-cell
+model parameters and their corresponding true values obtained from early-life experimental and latelife simulated data. 
+- **Physics-Based Loss**: a second loss term is generated to measure the difference between the predicted capacity and lithium inventory degradation parameter obtained by passing the predicted half-cell model parameters from the network into the half-cell surrogate model and the true ones. 
+- **Peak Loss**: the third loss term is the difference between the peak positions (voltages) observed in the simulated and experimental
+dQ/dV (V) curves.
 
 ## Requirements
 
@@ -34,8 +30,8 @@ To run the code, you will need to install the following dependencies:
 ### 1. CustomLossHC
 Defines the custom loss function combining:
 - **Data-driven loss**: MSE between predicted and true data.
-- **Physics-based loss**: Ensures predictions align with physical models.
-- **Peak loss**: Penalizes incorrect peak predictions.
+- **Physics-based loss**: Ensures predictions align with the half-cell model (influencing capacity and lithium inventory predictions).
+- **Peak loss**: Penalizes incorrect peak predictions (influencing positive and negative active mass predistions).
 
 ### 2. PINN
 The core model with three fully connected layers and ReLU activations.
@@ -69,10 +65,6 @@ Once your data and hyperparameters are ready, you can train the model by running
 
 # Co-Kriging  
 This method utilizes a **joint covariance function** to simultaneously model the auto-covariances of each individual process and the **cross-covariance** between two related processes. The model is optimized jointly, which means that both the kernel parameters and the relationship between the two outputs are learned at the same time.
-
-### Key Concepts:
-1. **Gaussian Process (GP):** A non-parametric method used for regression tasks, capable of capturing complex relationships.
-2. **Co-Kriging:** A generalization of Kriging (spatial interpolation) to model multiple correlated outputs, considering both the individual variances (auto-covariances) and their relationships (cross-covariances).
 
 ### Options for Co-Kriging:
 1. **Using a scalar parameter** to adjust the correlation between two separate GP models.
