@@ -7,7 +7,7 @@ Main codes for half-cell model, PINN and co-kriging implemented for physics-info
 
 # PINN model for battery degradation diagnostics
 
-This repository provides a **Physics-Informed Neural Network (PINN)** model designed for battery degradation diagnostics. The model combines:
+A **Physics-Informed Neural Network (PINN)** model designed for battery degradation diagnostics. This model combines:
 
 - **Data-Driven Loss**: The standard data-driven loss is calculated using the predicted half-cell
 model parameters and their corresponding true values obtained from early-life experimental and latelife simulated data. 
