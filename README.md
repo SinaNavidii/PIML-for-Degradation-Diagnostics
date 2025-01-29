@@ -8,6 +8,8 @@ Main codes for half-cell model, PINN and co-kriging implemented for physics-info
 # PINN 
 A **physics-informed neural network (PINN)** model designed for battery degradation diagnostics. This model combines:
 
+![image](https://github.com/user-attachments/assets/ff5bad53-2e64-4db1-8b47-3a5b6695c8c8)
+
 ### 1️⃣ **CustomLossHC Class**
 Defines the **hybrid loss function**, including:
 - **Data-driven MSE loss** (between predictions and real data).
@@ -27,7 +29,6 @@ Handles the **training pipeline**, including:
 - **Batch-based training using PyTorch DataLoader**.
 - **Validation to monitor performance**.
 
-![image](https://github.com/user-attachments/assets/ff5bad53-2e64-4db1-8b47-3a5b6695c8c8)
 
 
 
@@ -35,6 +36,8 @@ Handles the **training pipeline**, including:
 
 # Co-Kriging 
 Co-kriging is an extension of Gaussian process regression (GPR) that enables multi-fidelity modeling. This allows us to model a high-fidelity function using both high-fidelity (experimental) and low-fidelity (simulated by the half-cell model) datasets. This method utilizes a **joint covariance function** to simultaneously model the auto-covariances of each individual process and the **cross-covariance** between two related processes. The model is optimized jointly, which means that both the kernel parameters and the relationship between the two outputs are learned at the same time.
+
+![image](https://github.com/user-attachments/assets/829404d1-ede1-48b3-9d58-75d50e598fe0)
 
 ### 1️⃣ **CoKrigingModel Class**
 The `CoKrigingModel` class handles **training, optimization, and prediction**.  
@@ -49,7 +52,7 @@ The `CoKrigingModel` class handles **training, optimization, and prediction**.
 ### 2️⃣ **test_cokriging() Function**
 This function serves as the main entry point to **train and evaluate** the co-kriging model.
 
-![image](https://github.com/user-attachments/assets/829404d1-ede1-48b3-9d58-75d50e598fe0)
+
 
 
 
