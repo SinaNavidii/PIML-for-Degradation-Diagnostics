@@ -49,7 +49,8 @@ The `CoKrigingModel` class handles **training, optimization, and prediction**.
 ### 2️⃣ **test_cokriging() Function**
 This function serves as the main entry point to **train and evaluate** the co-kriging model.
 
-![image](https://github.com/user-attachments/assets/da0a0404-60cb-4d61-8ff4-27eed9fe75df)
+![image](https://github.com/user-attachments/assets/829404d1-ede1-48b3-9d58-75d50e598fe0)
+
 
 
 
