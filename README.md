@@ -27,7 +27,8 @@ Handles the **training pipeline**, including:
 - **Batch-based training using PyTorch DataLoader**.
 - **Validation to monitor performance**.
 
-  ![image](https://github.com/user-attachments/assets/aabef5c5-bdc8-47e9-8917-a2f778f91ceb)
+![image](https://github.com/user-attachments/assets/ff5bad53-2e64-4db1-8b47-3a5b6695c8c8)
+
 
 
 
