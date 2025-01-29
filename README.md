@@ -5,8 +5,7 @@ Main codes for half-cell model, PINN and co-kriging implemented for physics-info
 
 
 
-# PINN model for battery degradation diagnostics
-
+# PINN 
 A **Physics-Informed Neural Network (PINN)** model designed for battery degradation diagnostics. This model combines:
 
 - **Data-Driven Loss**: The standard data-driven loss is calculated using the predicted half-cell
@@ -54,7 +53,7 @@ Once your data and hyperparameters are ready, you can train the model by running
 
 
 # Co-Kriging 
-Co-Kriging is an extension of Gaussian Process Regression (GPR) that enables multi-fidelity modeling. This allows us to model a high-fidelity function using both high-fidelity and low-fidelity datasets, improving prediction accuracy where high-fidelity data is limited. This method utilizes a **joint covariance function** to simultaneously model the auto-covariances of each individual process and the **cross-covariance** between two related processes. The model is optimized jointly, which means that both the kernel parameters and the relationship between the two outputs are learned at the same time.
+Co-Kriging is an extension of Gaussian Process Regression (GPR) that enables multi-fidelity modeling. This allows us to model a high-fidelity function using both high-fidelity (experimental) and low-fidelity (simulated by the half-cell model) datasets. This method utilizes a **joint covariance function** to simultaneously model the auto-covariances of each individual process and the **cross-covariance** between two related processes. The model is optimized jointly, which means that both the kernel parameters and the relationship between the two outputs are learned at the same time.
 
 ### 1. **CoKrigingModel Class**
 The `CoKrigingModel` class handles **training, optimization, and prediction** using Co-Kriging.  
