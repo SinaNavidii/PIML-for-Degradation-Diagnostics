@@ -33,8 +33,7 @@ Handles the **training pipeline**, including:
 
 
 # Co-Kriging 
-Co-kriging is an extension of Gaussian process regression (GPR) that enables multi-fidelity modeling. This allows us to model a high-fidelity function using both high-fidelity (experimental) and low-fidelity (simulated by the half-cell model) datasets. This method utilizes a **joint covariance function** to simultaneously model the auto-covariances of each individual process and the **cross-covariance** between two related processes. The model is optimized jointly, which means that both the kernel parameters and the relationship between the two outputs are learned at the same time.
-
+Co-kriging is an extension of Gaussian process regression (GPR) that enables multi-fidelity modeling. This allows us to model a high-fidelity function using both high-fidelity (experimental) and low-fidelity (simulated by the half-cell model) datasets. This method utilizes a **joint covariance function** to simultaneously model the auto-covariances of each individual process and the **cross-covariance** between two related processes. 
 
 ### 1️⃣ **CoKrigingModel Class**
 The `CoKrigingModel` class handles **training, optimization, and prediction**.  
