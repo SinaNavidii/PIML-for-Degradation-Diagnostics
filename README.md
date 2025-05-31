@@ -15,7 +15,7 @@ Defines the **hybrid loss function**, including:
 - **Peak loss** (minimizing dQ/dV peak differences using a surrogate model).
 
 ### 2️⃣ **PINN Model**
-Implements a **fully connected neural network (FCNN)** with:
+Implements a **fully connected neural network** with:
 - **Input layer** → `input_size` neurons.
 - **Two hidden layers** with ReLU activation.
 - **Output layer** → `output_size` neurons.
