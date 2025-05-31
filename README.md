@@ -10,7 +10,7 @@ A **physics-informed neural network (PINN)** model designed for battery degradat
 
 ### 1️⃣ **CustomLossHC Class**
 Defines the **hybrid loss function**, including:
-- **Data-driven MSE loss** (between predictions and real data).
+- **Data-driven MSE loss** (between predicted and true values).
 - **Physics-based loss** (constraining outputs using a half-cell model).
 - **Peak loss** (minimizing dQ/dV peak differences using a surrogate model).
 
