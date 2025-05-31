@@ -10,7 +10,7 @@ A **physics-informed neural network (PINN)** model designed for battery degradat
 
 ### 1️⃣ **CustomLossHC Class**
 Defines the **hybrid loss function**, including:
-- **Data-driven MSE loss** (between predictions and real data).
+- **Data-driven MSE loss** (between predicted and true values).
 - **Physics-based loss** (constraining outputs using a half-cell model).
 - **Peak loss** (minimizing dQ/dV peak differences using a surrogate model).
 
@@ -33,16 +33,19 @@ Handles the **training pipeline**, including:
 
 
 # Co-Kriging 
-Co-kriging is an extension of Gaussian process regression (GPR) that enables multi-fidelity modeling. This allows us to model a high-fidelity function using both high-fidelity (experimental) and low-fidelity (simulated by the half-cell model) datasets. This method utilizes a **joint covariance function** to simultaneously model the auto-covariances of each individual process and the **cross-covariance** between two related processes. 
+Co-kriging is an extension of Gaussian process regression (GPR) that enables multi-fidelity modeling. This allows us to model a high-fidelity function using both high-fidelity (experimental) and low-fidelity (simulated by the half-cell model) datasets. It assumes a linear relationship between the two fidelities, combining their predictions through a scaling parameter ρ and a discrepancy GP that captures the remaining difference.
 
 ### 1️⃣ **CoKrigingModel Class**
 The `CoKrigingModel` class handles **training, optimization, and prediction**.  
 
 #### **Methods:**
-- **`__init__()`** → Initializes the model, loads data, and defines the kernels.
-- **`get_data_and_split()`** → Loads the dataset and splits it into training/testing sets.
-- **`train_model()`** → Optimizes the Co-Kriging model using maximum likelihood estimation.
-- **`predict()`** → Generates predictions for new test inputs.
+- **`__init__()`** → Initializes the model and loads separate low-fidelity and high-fidelity datasets.
+- **`_load_data()`** → Loads and splits the dataset into LF training, HF training, and test sets.
+- **`_fit_output()`** → Sequentially trains a LF GP, computes the discrepancy, and trains a second GP on the discrepancy.
+- **`_build_covariance()`** → Constructs the full block covariance matrix across both fidelities.
+- **`_log_marginal_likelihood()`** → Computes the log-marginal likelihood used to optimize ρ.
+- **`train_model()`** → Optimizes ρ and fits both GPs for each output using maximum likelihood estimation.
+- **`predict()`** → Generates predictions with posterior mean and variance for new test inputs.
 - **`run()`** → Trains the model, makes predictions, and calculates RMSPE.
 
 ### 2️⃣ **test_cokriging() Function**
